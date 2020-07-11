@@ -38,6 +38,7 @@ void Window::Init()
 	}
 
 	glfwMakeContextCurrent(_window);
+	glfwSwapInterval(1);
 
 	if (glewInit() != GLEW_OK)
 	{
@@ -47,6 +48,7 @@ void Window::Init()
 	}
 	LOG("OpenGL version : " << glGetString(GL_VERSION))
 	glfwSetKeyCallback(_window, keyboard_callback);
+
 	
 }
 
@@ -62,7 +64,7 @@ void Window::Update()
 	glfwPollEvents();
 }
 
-GLFWwindow* Window::GetWindowInstance()
+GLFWwindow* Window::GetWindowInstance() const
 {
 	return _window;
 }

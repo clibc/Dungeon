@@ -17,14 +17,13 @@ struct Vector2
 	
 };
 
-
 class Window
 {
 public:
 	Window(int width, int height, const char* title);
 	~Window();
 
-	GLFWwindow* GetWindowInstance();
+	GLFWwindow* GetWindowInstance() const;
 
 	void Init();
 	void Clear();

@@ -1,8 +1,8 @@
-#include "../Window.h"
-#include "../Source/LoadShader.hpp"
-#include "../VertexBuffer.h"
-#include "../IndexBuffer.h"
-#include "../Shader.h"
+#include "Window.h"
+#include "Source/LoadShader.hpp"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
 
 void main()
 {
@@ -24,22 +24,32 @@ void main()
 	glBindVertexArray(vao);
 
 	// Create VBO and pass it to OpenGL
-	VertexBuffer vb(g_vertex_buffer_data , sizeof(g_vertex_buffer_data));
+	VertexBuffer vb(g_vertex_buffer_data, sizeof(g_vertex_buffer_data));
 	IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
 
 	vb.Bind();
 
-
+	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main
+	Shader shader(shaderPaths);
+	glm::vec3 colors = { 0.5,0.6,0 };
+	std::cout << colors.x << '\n';
 	
-	Shader sh("./Shaders/vertexShader.glsl", "./Shaders/fragmentShader.glsl");
-
+	shader.Bind();
+	float incrementer = 0.01;
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
 		w.Clear();
-		sh.Bind();
-
+		shader.SetUniform3f("u_Color", colors); //Required to be called every draw call!
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+		if (colors.x < 1)
+			incrementer += 0.01;
+		if (colors.x > 1)
+			incrementer -= 0.01;
+
+		colors.x += incrementer;
+
 		//glDrawArrays(GL_TRIANGLES, 0, 4);
 		w.Update();
 	}

@@ -1,21 +1,23 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexShader, const char* fragmentShader)
-{
-	_program = LoadShaders(vertexShader, fragmentShader);
-}
 
-void Shader::Bind()
+Shader::Shader(ShaderPaths sp)
 {
-	glUseProgram(_program);
+	_programID = LoadShaders(sp.vertexPath , sp.fragmentPath);
 }
 
 Shader::~Shader()
 {
-	glDeleteProgram(_program);
+	glDeleteProgram(_programID);
 }
 
-GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
+void Shader::Bind()
+{
+	glUseProgram(_programID);
+}
+
+
+GLuint Shader::LoadShaders(const char* vs, const char* fs)
 {
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -23,7 +25,7 @@ GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_fi
 
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	std::ifstream VertexShaderStream(vs, std::ios::in);
 	if (VertexShaderStream.is_open())
 	{
 		std::stringstream sstr;
@@ -33,14 +35,14 @@ GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_fi
 	}
 	else
 	{
-		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_file_path);
+		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vs);
 		getchar();
 		return 0;
 	}
 
 	// Read the Fragment Shader code from the file
 	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	std::ifstream FragmentShaderStream(fs, std::ios::in);
 	if (FragmentShaderStream.is_open())
 	{
 		std::stringstream sstr;
@@ -53,7 +55,7 @@ GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_fi
 	int InfoLogLength;
 
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vertex_file_path);
+	printf("Compiling shader : %s\n", vs);
 	char const* VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
@@ -69,7 +71,7 @@ GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_fi
 	}
 
 	// Compile Fragment Shader
-	printf("Compiling shader : %s\n", fragment_file_path);
+	printf("Compiling shader : %s\n", fs);
 	char const* FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);
@@ -109,3 +111,29 @@ GLuint Shader::LoadShaders(const char* vertex_file_path, const char* fragment_fi
 
 	return ProgramID;
 }
+
+void Shader::SetUniform1f(const std::string& name, glm::float32 value)
+{
+	GLuint loc = glGetUniformLocation(_programID, name.c_str());
+	glUniform1f(loc, value);
+}
+
+void Shader::SetUniform2f(const std::string& name, glm::vec2 value)
+{
+	GLuint loc = glGetUniformLocation(_programID, name.c_str());
+	glUniform2f(loc, value.x, value.y);
+}
+
+void Shader::SetUniform3f(const std::string& name, glm::vec3 value)
+{
+	GLuint loc = glGetUniformLocation(_programID, name.c_str());
+	glUniform3f(loc, value.x, value.y, value.z);
+
+}
+
+void Shader::SetUniform4f(const std::string& name, glm::vec4 value)
+{
+	GLuint loc = glGetUniformLocation(_programID, name.c_str());
+	glUniform4f(loc, value.x, value.y, value.z, value.w);
+}
+
