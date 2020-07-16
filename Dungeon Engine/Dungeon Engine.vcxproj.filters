@@ -36,6 +36,12 @@
     <ClCompile Include="Dependencies\glm\detail\glm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\LoadShader.hpp">
@@ -899,6 +905,12 @@
     <ClInclude Include="Dependencies\glm\vector_relational.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\vertexShader.glsl" />
@@ -1311,5 +1323,13 @@
     <None Include="Dependencies\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

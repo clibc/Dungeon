@@ -1,3 +1,8 @@
+//-0.5f, -0.5f,
+//0.5f, -0.5f,
+//0.0f, 0.5f,
+//-1.0f, 0.5
+
 //#include <iostream>
 //#include <GL\glew.h>
 //#include <GLFW/glfw3.h>

@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Dependencies\glfw\include;$(ProjectDir)Dependencies\;$(ProjectDir)Dependencies\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Dependencies\glfw\include;$(ProjectDir)Dependencies\;$(ProjectDir)Dependencies\glew\include;$(ProjectDir)Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Dependencies\glfw\include;$(ProjectDir)Dependencies\;$(ProjectDir)Dependencies\glew\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Dependencies\glfw\include;$(ProjectDir)Dependencies\;$(ProjectDir)Dependencies\glew\include;$(ProjectDir)Source</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,8 @@
     <ClCompile Include="oldmain.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\stb_image.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -439,6 +441,8 @@
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Source\LoadShader.hpp" />
+    <ClInclude Include="Source\stb_image.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -581,6 +585,10 @@
     <None Include="Dependencies\glm\gtx\wrap.inl" />
     <None Include="Shaders\fragmentShader.glsl" />
     <None Include="Shaders\vertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\texture.jpg" />
+    <Image Include="Source\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
