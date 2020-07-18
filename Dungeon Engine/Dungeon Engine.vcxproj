@@ -148,6 +148,7 @@
     <ClCompile Include="Dependencies\glm\detail\glm.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="oldmain.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\stb_image.cpp" />
@@ -439,6 +440,7 @@
     <ClInclude Include="Dependencies\glm\vec4.hpp" />
     <ClInclude Include="Dependencies\glm\vector_relational.hpp" />
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Source\LoadShader.hpp" />
     <ClInclude Include="Source\stb_image.h" />

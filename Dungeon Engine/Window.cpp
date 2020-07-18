@@ -48,14 +48,8 @@ void Window::Init()
 	}
 	LOG("OpenGL version : " << glGetString(GL_VERSION))
 	glfwSetKeyCallback(_window, keyboard_callback);
-
+	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 	
-}
-
-void Window::Clear()
-{
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::Update()
@@ -81,6 +75,11 @@ void Window::keyboard_callback(GLFWwindow* window, int key, int scancode, int ac
 {
 	if (key == GLFW_KEY_E && action == GLFW_REPEAT | GLFW_PRESS)
 		std::cout << "E pressed" << "\n";
+}
+
+void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }
 
 //void Window::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)

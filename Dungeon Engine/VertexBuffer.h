@@ -1,7 +1,7 @@
 #pragma once
-#include "GL/glew.h"
+#include "Renderer.h"
 #include <cstdint>
-#include <iostream>
+
 
 class VertexBuffer
 {

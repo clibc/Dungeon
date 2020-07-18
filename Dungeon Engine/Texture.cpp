@@ -2,10 +2,12 @@
 
 Texture::Texture(char* const imagePath)
 {
+
 	glGenTextures(1, &_texture);
 	glBindTexture(GL_TEXTURE_2D, _texture);
 
 	int width, height, channels;
+	stbi_set_flip_vertically_on_load(true); // Texture is upside down without this
 	unsigned char* data = stbi_load(imagePath, &width, &height, &channels, 0);
 
 	if (!data)

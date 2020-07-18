@@ -7,8 +7,12 @@
 
 void main()
 {
-	Window w(800, 600, "Dungeon");
 
+	Window w(800, 600, "Dungeon");
+	Renderer renderer;
+	glm::vec4 clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	renderer.SetClearColor(clearColor);
 	static GLfloat g_vertex_buffer_data[] = {
 		// positions          // colors           // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
@@ -21,6 +25,7 @@ void main()
 		0,1,2,0,3,2
 	};
 
+
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -29,7 +34,8 @@ void main()
 	VertexBuffer vb(g_vertex_buffer_data, sizeof(g_vertex_buffer_data));
 	IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
 	Texture tex((char*)"Source/wall.jpg");
-	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main
+	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
+
 	Shader shader(shaderPaths);
 
 	vb.Bind();
@@ -40,22 +46,15 @@ void main()
 	vb.SetVertexAttribArray(0, 3, 8 * sizeof(float), 0);
 	vb.SetVertexAttribArray(1, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-
 	shader.Bind();
-	float incrementer = 0.01;
+
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
-		w.Clear();
+		renderer.Clear();
 		shader.SetUniform3f("u_Color", colors); //Required to be called every draw call!
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		renderer.Draw(6);
 
-		if (colors.x < 1)
-			incrementer += 0.01;
-		if (colors.x > 1)
-			incrementer -= 0.01;
-
-		colors.x += incrementer;
 		w.Update();
 	}
 }

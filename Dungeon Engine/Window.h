@@ -1,8 +1,5 @@
 #pragma once
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
-#include <iostream>
-#include <vector>
+#include "Renderer.h"
 
 struct Vector2
 {
@@ -26,7 +23,6 @@ public:
 	GLFWwindow* GetWindowInstance() const;
 
 	void Init();
-	void Clear();
 	void Update();
 	Vector2* GetMousePos();
 
@@ -43,6 +39,7 @@ private:
 	double _mouseX;
 
 	static void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int m);
+	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	//static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 };
 

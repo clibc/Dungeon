@@ -1,10 +1,8 @@
 #pragma once
+#include "Renderer.h"
 #include <string>
 #include <fstream>
-#include <vector>
 #include <sstream>
-#include "GL/glew.h"
-#include "glm\glm.hpp"
 
 struct ShaderPaths
 {
