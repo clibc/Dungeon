@@ -40,7 +40,17 @@ void main()
 
 	vb.SetIndexBuffer(ib);
 
-	glm::vec3 colors = { 0.5,0.6,0 };
+	//Set Matrices
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::rotate(model, glm::radians(120.0f), glm::vec3(1.0f, 0.0f, 0.0f)); //Rotate
+	glm::mat4 view = glm::mat4(1.0f);
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	glm::mat4 projection;
+	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+	shader.SetUniformMat4("model", model);
+	shader.SetUniformMat4("view", view);
+	shader.SetUniformMat4("projection", projection);
 
 	vb.SetVertexAttribArray(0, 3, 8 * sizeof(float), 0);
 	vb.SetVertexAttribArray(1, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
@@ -48,11 +58,10 @@ void main()
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
 		renderer.Clear();
-		//shader.SetUniform3f("u_Color", colors); //Required to be called every draw call!
 
 		renderer.Draw(shader, vb);
-		
-		LOG(w.GetKeyPressed(GLFW_KEY_A));
+
+
 		w.Update();
 	}
 }
