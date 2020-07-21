@@ -11,7 +11,7 @@ Shader::~Shader()
 	glDeleteProgram(_programID);
 }
 
-void Shader::Bind()
+void Shader::Bind() const
 {
 	glUseProgram(_programID);
 }
@@ -135,5 +135,12 @@ void Shader::SetUniform4f(const std::string& name, glm::vec4 value)
 {
 	GLuint loc = glGetUniformLocation(_programID, name.c_str());
 	glUniform4f(loc, value.x, value.y, value.z, value.w);
+}
+
+void Shader::SetUniformMat4(const std::string& name, const glm::mat4& value)
+{
+	GLuint loc = glGetUniformLocation(_programID, name.c_str());
+	const float* values = (const float*)glm::value_ptr(value);
+	glUniformMatrix4fv(loc, 1, GL_FALSE, values);
 }
 

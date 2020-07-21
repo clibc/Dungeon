@@ -2,12 +2,19 @@
 
 #define LOG(x) std::cout << x << "\n"; 
 
+bool Window::_Keys[MAX_KEYS];
+
 Window::Window(int width, int height, const char* title)
 {
 	_width = width;
 	_height = height;
 	_title = title;
 	Init();
+
+	for (unsigned int i=0; i < MAX_KEYS; i++)
+	{
+		Window::_Keys[i] = false;
+	}
 }
 
 Window::~Window()
@@ -49,7 +56,7 @@ void Window::Init()
 	LOG("OpenGL version : " << glGetString(GL_VERSION))
 	glfwSetKeyCallback(_window, keyboard_callback);
 	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
-	
+
 }
 
 void Window::Update()
@@ -58,23 +65,29 @@ void Window::Update()
 	glfwPollEvents();
 }
 
+float Window::GetKeyPressed(int keycode)
+{
+	return Window::_Keys[keycode];
+}
+
 GLFWwindow* Window::GetWindowInstance() const
 {
 	return _window;
 }
 
-Vector2* Window::GetMousePos()
+glm::vec2 Window::GetMousePos()
 {
 	glfwGetCursorPos(_window, &_mouseX, &_mouseY);
-	Vector2 pos(_mouseX, _mouseY);
-
-	return &pos;
+	glm::vec2 pos(_mouseX, _mouseY);
+	return pos;
 }
 
 void Window::keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int m)
 {
-	if (key == GLFW_KEY_E && action == GLFW_REPEAT | GLFW_PRESS)
-		std::cout << "E pressed" << "\n";
+	if (action == GLFW_PRESS)
+		Window::_Keys[key] = true;
+	else if (action == GLFW_RELEASE)
+		Window::_Keys[key] = false;
 }
 
 void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -82,9 +95,3 @@ void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height
 	glViewport(0, 0, width, height);
 }
 
-//void Window::cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
-//{
-//	Window* winl = (Window*)glfwGetWindowUserPointer(window);
-//	winl->_mouseX = xpos;
-//	winl->_mouseY = ypos;
-//}

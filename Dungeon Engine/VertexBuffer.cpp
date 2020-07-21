@@ -1,6 +1,7 @@
 #include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer(float* vertices, uint32_t size)
+	:_vertexCount(size/sizeof(float))
 {
 	glCreateBuffers(1, &_bufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
@@ -21,7 +22,14 @@ void VertexBuffer::SetVertexAttribArray(GLuint index, GLint size, size_t stride,
 	std::cout << "vertex set" << "\n";
 }
 
-void VertexBuffer::Bind()
+void VertexBuffer::SetIndexBuffer(const IndexBuffer& ib)
+{
+	glBindVertexArray(_bufferID);
+	ib.Bind();
+	_indexBuffer = &ib;
+}
+
+void VertexBuffer::Bind() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, _bufferID);
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include "Renderer.h"
+#include "IndexBuffer.h"
+#include <iostream>
 #include <cstdint>
 
 
@@ -9,11 +10,15 @@ public:
 	VertexBuffer(float * vertices, uint32_t	size);
 	~VertexBuffer();
 	void SetVertexAttribArray(GLuint index, GLint size, size_t stride, const GLvoid* pointer);
-	void Bind();
+	void SetIndexBuffer(const IndexBuffer& ib);
+	void Bind() const;
 	void Unbind();
 
 private:
 	GLuint _bufferID;
+	unsigned int _vertexCount;
+public:
+	const IndexBuffer* _indexBuffer;
 
 };
 

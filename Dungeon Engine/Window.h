@@ -1,18 +1,7 @@
 #pragma once
 #include "Renderer.h"
 
-struct Vector2
-{
-	double x;
-	double y;
-	
-	Vector2(double xL, double yL)
-	{
-		x = xL;
-		y = yL;
-	}
-	
-};
+#define MAX_KEYS 1024
 
 class Window
 {
@@ -24,7 +13,8 @@ public:
 
 	void Init();
 	void Update();
-	Vector2* GetMousePos();
+	float GetKeyPressed(int keycode);
+	glm::vec2 GetMousePos();
 
 	// Test keyboard callback
 	
@@ -34,12 +24,12 @@ private:
 	unsigned int _width;
 	unsigned int _height;
 
-	//mouse position
+	static bool _Keys[MAX_KEYS];
+
 	double _mouseY;
 	double _mouseX;
 
 	static void keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int m);
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	//static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
 };
 

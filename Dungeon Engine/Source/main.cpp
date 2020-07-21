@@ -38,23 +38,21 @@ void main()
 
 	Shader shader(shaderPaths);
 
-	vb.Bind();
-
+	vb.SetIndexBuffer(ib);
 
 	glm::vec3 colors = { 0.5,0.6,0 };
 
 	vb.SetVertexAttribArray(0, 3, 8 * sizeof(float), 0);
 	vb.SetVertexAttribArray(1, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 
-	shader.Bind();
-
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
 		renderer.Clear();
-		shader.SetUniform3f("u_Color", colors); //Required to be called every draw call!
+		//shader.SetUniform3f("u_Color", colors); //Required to be called every draw call!
 
-		renderer.Draw(6);
-
+		renderer.Draw(shader, vb);
+		
+		LOG(w.GetKeyPressed(GLFW_KEY_A));
 		w.Update();
 	}
 }

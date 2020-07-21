@@ -15,7 +15,9 @@ void Renderer::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t heig
 	glViewport(x, y, width, height);
 }
 
-void Renderer::Draw(unsigned int count)
+void Renderer::Draw(const Shader& shader, const VertexBuffer& vertexBuffer)
 {
-	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	vertexBuffer.Bind();
+	shader.Bind();
+	glDrawElements(GL_TRIANGLES, vertexBuffer._indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 }
