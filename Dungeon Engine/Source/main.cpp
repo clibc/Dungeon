@@ -39,12 +39,13 @@ void main()
 	Shader shader(shaderPaths);
 
 	vb.SetIndexBuffer(ib);
+	tex.Bind();
 
 	//Set Matrices
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::rotate(model, glm::radians(120.0f), glm::vec3(1.0f, 0.0f, 0.0f)); //Rotate
 	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -30.0f));
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -60,7 +61,6 @@ void main()
 		renderer.Clear();
 
 		renderer.Draw(shader, vb);
-
 
 		w.Update();
 	}

@@ -16,7 +16,6 @@ public:
 	float GetKeyPressed(int keycode);
 	glm::vec2 GetMousePos();
 
-	// Test keyboard callback
 	
 private:
 	GLFWwindow* _window;

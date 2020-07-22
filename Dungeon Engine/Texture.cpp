@@ -6,9 +6,8 @@ Texture::Texture(char* const imagePath)
 	glGenTextures(1, &_texture);
 	glBindTexture(GL_TEXTURE_2D, _texture);
 
-	int width, height, channels;
 	stbi_set_flip_vertically_on_load(true); // Texture is upside down without this
-	unsigned char* data = stbi_load(imagePath, &width, &height, &channels, 0);
+	unsigned char* data = stbi_load(imagePath, &_width, &_height, &_channels, 0);
 
 	if (!data)
 	{
@@ -22,7 +21,7 @@ Texture::Texture(char* const imagePath)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	
@@ -30,6 +29,12 @@ Texture::Texture(char* const imagePath)
 	stbi_image_free(data);
 
 	std::cout << "texture generated" << "\n";
+}
+
+void Texture::Bind(unsigned int slot) const
+{
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(GL_TEXTURE_2D, _texture);	
 }
 
 Texture::~Texture()
