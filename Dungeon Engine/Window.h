@@ -13,7 +13,7 @@ public:
 
 	void Init();
 	void Update();
-	float GetKeyPressed(int keycode);
+	bool GetKeyPressed(int keycode);
 	glm::vec2 GetMousePos();
 
 	

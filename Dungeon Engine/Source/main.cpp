@@ -105,6 +105,12 @@ void main()
 
 		renderer.DrawVertices(shader, vb);
 
+		if (w.GetKeyPressed(GLFW_KEY_R))
+		{
+			model = glm::rotate(model, glm::radians(-1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+			shader.SetUniformMat4("model", model);
+		}
+
 		w.Update();
 	}
 }

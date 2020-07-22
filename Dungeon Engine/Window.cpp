@@ -65,7 +65,7 @@ void Window::Update()
 	glfwPollEvents();
 }
 
-float Window::GetKeyPressed(int keycode)
+bool Window::GetKeyPressed(int keycode)
 {
 	return Window::_Keys[keycode];
 }
