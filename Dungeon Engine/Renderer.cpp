@@ -1,5 +1,10 @@
 #include "Renderer.h"
 
+Renderer::Renderer()
+{
+	glEnable(GL_DEPTH_TEST);
+}
+
 void Renderer::SetClearColor(const glm::vec4& color)
 {
 	glClearColor(color.x, color.y, color.z, color.w);
@@ -20,4 +25,11 @@ void Renderer::Draw(const Shader& shader, const VertexBuffer& vertexBuffer)
 	vertexBuffer.Bind();
 	shader.Bind();
 	glDrawElements(GL_TRIANGLES, vertexBuffer._indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+}
+
+void Renderer::DrawVertices(const Shader& shader, const VertexBuffer& vertexBuffer)
+{
+	vertexBuffer.Bind();
+	shader.Bind();
+	glDrawArrays(GL_TRIANGLES, 0, vertexBuffer.GetVertexCount());
 }

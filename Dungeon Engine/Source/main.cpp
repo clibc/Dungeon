@@ -8,11 +8,54 @@
 void main()
 {
 
-	Window w(800, 600, "Dungeon");
+	Window w(800, 600, "Dungeon Engine");
 	Renderer renderer;
-	glm::vec4 clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 
-	renderer.SetClearColor(clearColor);
+	float vertices[] = {
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	};
+
+	renderer.SetClearColor(glm::vec4(0.4f, 0.5f, 1.0f, 1.0f));
 	static GLfloat g_vertex_buffer_data[] = {
 		// positions          // colors           // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
@@ -31,21 +74,21 @@ void main()
 	glBindVertexArray(vao);
 
 	// Create VBO and pass it to OpenGL
-	VertexBuffer vb(g_vertex_buffer_data, sizeof(g_vertex_buffer_data));
-	IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
+	VertexBuffer vb(vertices, sizeof(vertices));
+	//IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
 	Texture tex((char*)"Source/wall.jpg");
 	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
 
 	Shader shader(shaderPaths);
 
-	vb.SetIndexBuffer(ib);
+	//vb.SetIndexBuffer(ib);
 	tex.Bind();
 
 	//Set Matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(120.0f), glm::vec3(1.0f, 0.0f, 0.0f)); //Rotate
+	model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(1.0f, 1.0f, 0.0f)); //Rotate
 	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -30.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -53,14 +96,14 @@ void main()
 	shader.SetUniformMat4("view", view);
 	shader.SetUniformMat4("projection", projection);
 
-	vb.SetVertexAttribArray(0, 3, 8 * sizeof(float), 0);
-	vb.SetVertexAttribArray(1, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	vb.SetVertexAttribArray(0, 3, 5 * sizeof(float), 0); //Vertex positions 
+	vb.SetVertexAttribArray(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float))); // Texture position
 
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
 		renderer.Clear();
 
-		renderer.Draw(shader, vb);
+		renderer.DrawVertices(shader, vb);
 
 		w.Update();
 	}

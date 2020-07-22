@@ -1,7 +1,7 @@
 #include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer(float* vertices, uint32_t size)
-	:_vertexCount(size/sizeof(float))
+	:_vertexCount((size / sizeof(float))/3)
 {
 	glCreateBuffers(1, &_bufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, _bufferID);

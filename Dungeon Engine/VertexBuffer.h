@@ -11,6 +11,7 @@ public:
 	~VertexBuffer();
 	void SetVertexAttribArray(GLuint index, GLint size, size_t stride, const GLvoid* pointer);
 	void SetIndexBuffer(const IndexBuffer& ib);
+	inline uint32_t GetVertexCount() const { return _vertexCount; }
 	void Bind() const;
 	void Unbind();
 
