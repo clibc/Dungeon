@@ -1,6 +1,6 @@
 # Dungeon
 Dungeon Engine
-The non-commercial game engine that I build for learning purposes. I am currently working on the renderer (using OpenGL). For future work planning to add Logging system, Entity-Component System, etc.
+The non-commercial game engine that I build for learning purposes. I am currently working on the renderer (using OpenGL). For future work planning to add Log system, Entity-Component System, etc.
 
 ![](https://github.com/62bit/Dungeon/blob/master/Dungeon%20Engine/Source/dungeon.gif)
 
