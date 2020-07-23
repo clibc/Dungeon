@@ -1,5 +1,6 @@
 #pragma once
 #include "IndexBuffer.h"
+#include "Log.h"
 #include <iostream>
 #include <cstdint>
 

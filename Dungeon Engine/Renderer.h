@@ -6,6 +6,7 @@
 #include "glm/glm.hpp"
 #include "Shader.h"
 #include "VertexBuffer.h"
+#include "Log.h"
 
 
 #define LOG(x) std::cout << x << "\n";

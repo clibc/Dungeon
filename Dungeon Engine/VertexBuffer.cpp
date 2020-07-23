@@ -19,7 +19,7 @@ void VertexBuffer::SetVertexAttribArray(GLuint index, GLint size, size_t stride,
 {
 	glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, pointer);
 	glEnableVertexAttribArray(index);
-	std::cout << "vertex set" << "\n";
+	DG_ENGINE_INFO("VertexAtrrib Setted");
 }
 
 void VertexBuffer::SetIndexBuffer(const IndexBuffer& ib)

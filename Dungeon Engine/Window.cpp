@@ -1,6 +1,5 @@
 #include "Window.h"
 
-#define LOG(x) std::cout << x << "\n"; 
 
 bool Window::_Keys[MAX_KEYS];
 
@@ -24,9 +23,10 @@ Window::~Window()
 
 void Window::Init()
 {
+	Log::Init();
 	if (glfwInit() != GLFW_TRUE)
 	{
-		std::cout << "glfwInit() Failed" << "\n";
+		DG_ENGINE_ERROR("glfwInit() Failed");
 		glfwTerminate();
 		return;
 	}
@@ -39,7 +39,7 @@ void Window::Init()
 
 	if (_window == NULL)
 	{
-		std::cout << stderr << " Failed to open Window" << "\n";
+		DG_ENGINE_ERROR(" Failed to open Window");
 		glfwTerminate();
 		return;
 	}
@@ -49,14 +49,14 @@ void Window::Init()
 
 	if (glewInit() != GLEW_OK)
 	{
-		std::cout << stderr << "glewInin() failed!" << "\n";
+		DG_ENGINE_ERROR("glewInin() failed!");
 		glfwTerminate();
 		return;
 	}
-	LOG("OpenGL version : " << glGetString(GL_VERSION))
 	glfwSetKeyCallback(_window, keyboard_callback);
 	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
 
+	DG_ENGINE_INFO("Window initialized successfully");
 }
 
 void Window::Update()

@@ -1,0 +1,6 @@
+[submodule "Dungeon Engine/Dependencies/Dungeon Engine\\Dependencies\\spdlog"]
+	path = Dungeon Engine/Dependencies/Dungeon Engine\\Dependencies\\spdlog
+	url = https://github.com/gabime/spdlog.git
+[submodule "Dungeon Engine\\Dependencies\\spdlog"]
+	path = Dungeon Engine\\Dependencies\\spdlog
+	url = https://github.com/gabime/spdlog.git

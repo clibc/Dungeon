@@ -28,7 +28,7 @@ Texture::Texture(char* const imagePath)
 
 	stbi_image_free(data);
 
-	std::cout << "texture generated" << "\n";
+	DG_ENGINE_INFO("Texture Generated");
 }
 
 void Texture::Bind(unsigned int slot) const
