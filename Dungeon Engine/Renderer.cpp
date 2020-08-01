@@ -1,8 +1,14 @@
 #include "Renderer.h"
 
+Renderer* Renderer::_instance;
+
 Renderer::Renderer()
 {
+	if (Renderer::_instance == nullptr)
+		Renderer::_instance = this;
+
 	glEnable(GL_DEPTH_TEST);
+	DG_ENGINE_INFO("Renderer initialized successfully");
 }
 
 void Renderer::SetClearColor(const glm::vec4& color)

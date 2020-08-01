@@ -2,12 +2,12 @@
 
 
 bool Window::_Keys[MAX_KEYS];
+bool Window::_MouseButtons[MAX_MOUSE_KEYS];
+
 
 Window::Window(int width, int height, const char* title)
+	:_width(width), _height(height), _title(title)
 {
-	_width = width;
-	_height = height;
-	_title = title;
 	Init();
 
 	for (unsigned int i=0; i < MAX_KEYS; i++)
@@ -55,6 +55,7 @@ void Window::Init()
 	}
 	glfwSetKeyCallback(_window, keyboard_callback);
 	glfwSetFramebufferSizeCallback(_window, framebuffer_size_callback);
+	glfwSetMouseButtonCallback(_window, mouse_button_callback);
 
 	DG_ENGINE_INFO("Window initialized successfully");
 }
@@ -84,10 +85,24 @@ glm::vec2 Window::GetMousePos()
 
 void Window::keyboard_callback(GLFWwindow* window, int key, int scancode, int action, int m)
 {
-	if (action == GLFW_PRESS)
+
+	switch (action)
+	{	
+	case GLFW_PRESS:
 		Window::_Keys[key] = true;
-	else if (action == GLFW_RELEASE)
+		DG_ENGINE_INFO("Key Pressed : {} : {}", key, (char)key);
+		break;
+	case GLFW_RELEASE:
 		Window::_Keys[key] = false;
+		DG_ENGINE_INFO("Key Released : {} : {}", key, (char)key);
+		break;
+	case GLFW_REPEAT:
+		Window::_Keys[key] = true;
+		DG_ENGINE_INFO("Key Repeat : {} : {}", key, (char)key);
+		break;
+	default:
+		break;
+	}
 }
 
 void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -95,3 +110,20 @@ void Window::framebuffer_size_callback(GLFWwindow* window, int width, int height
 	glViewport(0, 0, width, height);
 }
 
+void Window::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+
+	switch (action)
+	{
+	case GLFW_PRESS:
+		Window::_MouseButtons[button] = true;
+		DG_ENGINE_INFO("Mouse Button Pressed : {}", button);
+		break;
+	case GLFW_RELEASE:
+		Window::_MouseButtons[button] = false;
+		DG_ENGINE_INFO("Mouse Button Released : {}" , button);
+		break;
+	default:
+		break;
+	}
+}

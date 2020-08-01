@@ -6,7 +6,8 @@ std::shared_ptr<spdlog::logger> Log::_logger;
 
 void Log::Init()
 {
-	spdlog::set_pattern("%^[%r:%t:%l]*[%n] *** [%v]%$");
+	spdlog::set_pattern("%^[%r : Thread(%t) : %l]*[%n] *** [%v]%$");
 	_logger = spdlog::stdout_color_mt("DUNGEON");
 	_logger->set_level(spdlog::level::trace);
+	_logger->flush_on(spdlog::level::trace);
 }

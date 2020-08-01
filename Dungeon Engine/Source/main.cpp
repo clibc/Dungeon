@@ -4,11 +4,12 @@
 #include "IndexBuffer.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "Gui.h"
 
 void main()
 {
 
-	Window w(800, 600, "Dungeon Engine");
+	Window w(1000, 800, "Dungeon Engine");
 	Renderer renderer;
 
 	float vertices[] = {
@@ -59,6 +60,7 @@ void main()
 	static GLfloat g_vertex_buffer_data[] = {
 		// positions          // colors           // texture coords
 		0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+
 		0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
 	   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
 	   -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
@@ -78,17 +80,21 @@ void main()
 	//IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
 	Texture tex((char*)"Source/wall.jpg");
 	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
-
 	Shader shader(shaderPaths);
 
 	//vb.SetIndexBuffer(ib);
 	tex.Bind();
 
+	//Set transform
+	glm::vec3 rotation = glm::vec3(1.0f);
+	glm::vec3 transformation = glm::vec3(0.0f);
+	glm::vec3 scale = glm::vec3(1.0f);
+
 	//Set Matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(1.0f, 1.0f, 0.0f)); //Rotate
+	model = glm::rotate(model, glm::radians(-50.0f), rotation); //Rotate
 	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -50.0f));
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -99,17 +105,25 @@ void main()
 	vb.SetVertexAttribArray(0, 3, 5 * sizeof(float), 0); //Vertex positions 
 	vb.SetVertexAttribArray(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float))); // Texture position
 
+	
+
+	// ImGui stuff
+	Gui gui(w.GetWindowInstance(), true);
+	GuiObjectWindow objectWindow("Cube",transformation);
+	gui.GuiAddWindow(&objectWindow);
+
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
+
 		renderer.Clear();
 
 		renderer.DrawVertices(shader, vb);
 
-		if (w.GetKeyPressed(GLFW_KEY_R))
-			DG_ENGINE_INFO("Key Pressed : {}" ,GLFW_KEY_R);
-
-		model = glm::rotate(model, glm::radians(-1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, transformation);
 		shader.SetUniformMat4("model", model);
+
+		gui.Update();
 		w.Update();
+
 	}
 }
