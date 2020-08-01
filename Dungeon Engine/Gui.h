@@ -9,6 +9,7 @@ class MyGuiWindow
 {
 public:
 	virtual void Update() = 0;
+	Renderer _renderer = Renderer::GetInstance();
 
 };
 
@@ -37,20 +38,21 @@ private:
 class GuiEnviromentWindow : public MyGuiWindow
 {
 public:
-	GuiEnviromentWindow(glm::vec4& color)
-		:_color(color)
-	{
-	}
+	GuiEnviromentWindow() = default;
 
 	virtual void Update() override
 	{
 		ImGui::Begin("Environment");
-		ImGui::DragFloat4("Color", (float*)&_color);
+		ImGui::ColorEdit4("BG Color", (float*)&_color);
+		if (ImGui::Button("Change Color"))
+			_renderer.SetClearColor(_color);
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
 		ImGui::End();
 	}
 
 private:
-	glm::vec4& _color;
+	glm::vec4 _color = glm::vec4(0.0f);
 };
 
 

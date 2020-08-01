@@ -6,6 +6,13 @@
 #include "Texture.h"
 #include "Gui.h"
 
+glm::mat4 CalculateModel(glm::vec3 vec)
+{
+	glm::mat4 mat = glm::mat4(1.0f);
+	mat = glm::translate(mat, vec);
+	return mat;
+}
+
 void main()
 {
 
@@ -78,7 +85,7 @@ void main()
 	// Create VBO and pass it to OpenGL
 	VertexBuffer vb(vertices, sizeof(vertices));
 	//IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
-	Texture tex((char*)"Source/wall.jpg");
+	Texture tex((char*)"Source/wood.jpg");
 	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
 	Shader shader(shaderPaths);
 
@@ -92,9 +99,9 @@ void main()
 
 	//Set Matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-50.0f), rotation); //Rotate
+	model = glm::rotate(model, glm::radians(-5.0f), rotation); //Rotate
 	glm::mat4 view = glm::mat4(1.0f);
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -50.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
@@ -105,12 +112,12 @@ void main()
 	vb.SetVertexAttribArray(0, 3, 5 * sizeof(float), 0); //Vertex positions 
 	vb.SetVertexAttribArray(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float))); // Texture position
 
-	
-
 	// ImGui stuff
 	Gui gui(w.GetWindowInstance(), true);
 	GuiObjectWindow objectWindow("Cube",transformation);
+	GuiEnviromentWindow envWindow;
 	gui.GuiAddWindow(&objectWindow);
+	gui.GuiAddWindow(&envWindow);
 
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
@@ -118,9 +125,8 @@ void main()
 		renderer.Clear();
 
 		renderer.DrawVertices(shader, vb);
-
-		model = glm::translate(model, transformation);
-		shader.SetUniformMat4("model", model);
+		model = CalculateModel(transformation);
+		shader.SetModelMatrix(model);
 
 		gui.Update();
 		w.Update();

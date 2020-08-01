@@ -139,3 +139,31 @@ void Shader::SetUniformMat4(const std::string& name, const glm::mat4& value)
 	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
 }
 
+void Shader::SetModelMatrix(glm::mat4 matrix)
+{
+	if (_model == matrix)
+		return;
+
+	_model = matrix;
+	SetUniformMat4("model", matrix);
+}
+
+
+void Shader::SetViewMatrix(glm::mat4 matrix)
+{
+	if (_view == matrix)
+		return;
+
+	_view = matrix;
+	SetUniformMat4("view", matrix);
+}
+
+
+void Shader::SetProjectionlMatrix(glm::mat4 matrix)
+{
+	if (_projection == matrix)
+		return;
+
+	_projection = matrix;
+	SetUniformMat4("projection", matrix);
+}
