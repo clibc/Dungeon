@@ -17,5 +17,7 @@ The project contains Visual Studio Solution file(.sln) which means you can clone
 **Helper Libraries**
 - [GLFW](https://www.glfw.org/)
 - [GLEW](http://glew.sourceforge.net/)
-- [stb](https://github.com/nothings/stb)
+- [stb](https://github.com/nothings/stb/)
 - [GLM](https://glm.g-truc.net/)
+- [spdlog](https://github.com/gabime/spdlog)
+- [ImGui](https://github.com/ocornut/imgui/)
