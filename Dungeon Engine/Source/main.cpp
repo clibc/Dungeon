@@ -6,12 +6,6 @@
 #include "Texture.h"
 #include "Gui.h"
 
-glm::mat4 CalculateModel(glm::vec3 vec)
-{
-	glm::mat4 mat = glm::mat4(1.0f);
-	mat = glm::translate(mat, vec);
-	return mat;
-}
 
 void main()
 {
@@ -99,10 +93,11 @@ void main()
 
 	//Set Matrices
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-5.0f), rotation); //Rotate
 	glm::mat4 view = glm::mat4(1.0f);
+	glm::mat4 projection = glm::mat4(1.0f);
+
+	model = glm::translate(model, transformation);
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
 	shader.SetUniformMat4("model", model);
@@ -124,9 +119,8 @@ void main()
 
 		renderer.Clear();
 
+		shader.SetUniformMat4("model", glm::translate(glm::mat4(1.0f), transformation));
 		renderer.DrawVertices(shader, vb);
-		model = CalculateModel(transformation);
-		shader.SetModelMatrix(model);
 
 		gui.Update();
 		w.Update();
