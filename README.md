@@ -4,7 +4,7 @@ The non-commercial game engine that I build for learning purposes. I am currentl
 ![](https://github.com/62bit/Dungeon/blob/master/Dungeon%20Engine/Source/dungeon.gif)
 
 # Getting Started
-The project contains Visual Studio Solution file(.sln) which means you can clone and open with. So it is only available on Windows atm. (I will add Premake or CMake to make this easier)
+The project contains Visual Studio Solution file(.sln) which means you can clone and open with. So it is only available on Windows atm. (I will add Premake or CMake to make the building process easier)
 
 ```
 1. git clone https://github.com/62bit/Dungeon.git
