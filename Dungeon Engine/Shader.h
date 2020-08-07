@@ -21,7 +21,7 @@ struct ShaderPaths
 
 class Shader
 {
-public:	
+public:
 	Shader(ShaderPaths sp);
 	~Shader();
 	void Bind() const;

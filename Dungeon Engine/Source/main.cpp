@@ -114,14 +114,14 @@ void main()
 	gui.GuiAddWindow(&objectWindow);
 	gui.GuiAddWindow(&envWindow);
 
+
 	while (glfwGetKey(w.GetWindowInstance(), GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(w.GetWindowInstance()) == 0)
 	{
 
 		renderer.Clear();
-
+		
 		shader.SetUniformMat4("model", glm::translate(glm::mat4(1.0f), transformation));
 		renderer.DrawVertices(shader, vb);
-
 		gui.Update();
 		w.Update();
 
