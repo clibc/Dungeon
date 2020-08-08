@@ -79,8 +79,8 @@ void main()
 	// Create VBO and pass it to OpenGL
 	VertexBuffer vb(vertices, sizeof(vertices));
 	//IndexBuffer ib(g_index_buffer_data, sizeof(g_index_buffer_data) / sizeof(GLuint));
-	Texture tex((char*)"Source/wood.jpg");
-	ShaderPaths shaderPaths("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
+	Texture tex((char*)"../Dungeon Engine/Source/wood.jpg");
+	ShaderPaths shaderPaths("../Dungeon Engine/Shaders/vertexShader.glsl", "../Dungeon Engine/Shaders/fragmentShader.glsl"); // This path is for shader.h not for main.
 	Shader shader(shaderPaths);
 
 	//vb.SetIndexBuffer(ib);
